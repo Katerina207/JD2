@@ -1,7 +1,7 @@
 package dto;
 
-import enumeratiom.BoilingPoint;
-import enumeratiom.UnitRange;
+import enumeration.BoilingPoint;
+import enumeration.UnitRange;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

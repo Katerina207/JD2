@@ -1,8 +1,8 @@
 package servlet;
 
 import dto.SearchUnitDto;
-import enumeratiom.BoilingPoint;
-import enumeratiom.UnitRange;
+import enumeration.BoilingPoint;
+import enumeration.UnitRange;
 import service.CatalogService;
 import util.JspPathUtil;
 

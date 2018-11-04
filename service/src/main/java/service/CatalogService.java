@@ -3,9 +3,9 @@ package service;
 import dao.UnitDao;
 import dto.SearchUnitDto;
 import dto.ViewBasicUnitInfoDto;
-import entity.Unit;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import model.Unit;
 
 import java.util.List;
 import java.util.Set;

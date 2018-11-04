@@ -1,4 +1,4 @@
-package enumeratiom;
+package enumeration;
 
 public enum UnitRange {
 
