@@ -1,4 +1,4 @@
-package model;
+package com.refunits.model;
 
 import lombok.Builder;
 import lombok.Data;

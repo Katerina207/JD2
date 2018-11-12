@@ -1,6 +1,6 @@
-package model;
+package com.refunits.model;
 
-import enumeration.OrderStatus;
+import com.refunits.enumeration.OrderStatus;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;

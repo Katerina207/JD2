@@ -1,7 +1,7 @@
 package dto;
 
-import enumeration.BoilingPoint;
-import enumeration.UnitRange;
+import com.refunits.enumeration.BoilingPoint;
+import com.refunits.enumeration.UnitRange;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,4 +17,6 @@ public class SearchUnitDto {
     private UnitRange range;
     private Double minRefCapacity;
     private Double maxRefCapacity;
+    private Integer limit;
+    private Integer offset;
 }

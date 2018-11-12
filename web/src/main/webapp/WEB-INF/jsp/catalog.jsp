@@ -35,6 +35,14 @@
                 <input id="maxRefCapacity" type="number" name="maxRefCapacity">
             </label>
             <br>
+            <label for="limit">Number of units per page:</label>
+            <select name="limit" id="limit">
+                <%--<option></option>--%>
+                <c:forEach var="limit" items="${requestScope.limits}">
+                    <option value="${limit}">${limit}</option>
+                </c:forEach>
+            </select>
+            <br>
             <input type="submit" name="search" value="Search">
         </div>
     </form>

@@ -1,12 +1,15 @@
 package service;
 
-import dao.UnitDao;
+import com.refunits.dao.UnitDao;
+import com.refunits.enumeration.BoilingPoint;
+import com.refunits.enumeration.UnitRange;
 import dto.SearchUnitDto;
 import dto.ViewBasicUnitInfoDto;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import model.Unit;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -27,20 +30,34 @@ public final class CatalogService {
     }
 
     public Set<ViewBasicUnitInfoDto> getFiltered(SearchUnitDto searchUnitDto) {
-        List<Unit> units = UnitDao.getInstance().getAll();
+        List<BoilingPoint> boilingPoints = new ArrayList<>();
+        List<UnitRange> ranges = new ArrayList<>();
+        Double minRefCapacity;
+        Double maxRefCapacity;
         if (searchUnitDto.getBoilingPoint() != null) {
-            units.removeIf(it -> !it.getBoilingPoint().equals(searchUnitDto.getBoilingPoint()));
+            boilingPoints.add(searchUnitDto.getBoilingPoint());
+        } else {
+            boilingPoints.addAll(Arrays.asList(BoilingPoint.values()));
         }
         if (searchUnitDto.getRange() != null) {
-            units.removeIf(it -> !it.getRange().equals(searchUnitDto.getRange()));
+            ranges.add(searchUnitDto.getRange());
+        } else {
+            ranges.addAll(Arrays.asList(UnitRange.values()));
         }
-        if (searchUnitDto.getMinRefCapacity() != null && searchUnitDto.getMaxRefCapacity() != null) {
-            units.removeIf(it -> it.getRefCapacity() < searchUnitDto.getMinRefCapacity() ||
-                    it.getRefCapacity() > searchUnitDto.getMaxRefCapacity());
+        if (searchUnitDto.getMinRefCapacity() != null) {
+            minRefCapacity = searchUnitDto.getMinRefCapacity();
+        } else {
+            minRefCapacity = Double.MIN_VALUE;
         }
-
-        return units.stream().
-                map(it -> new ViewBasicUnitInfoDto(it.getId(), it.getName(), it.getPrice()))
+        if (searchUnitDto.getMaxRefCapacity() != null) {
+            maxRefCapacity = searchUnitDto.getMaxRefCapacity();
+        } else {
+            maxRefCapacity = Double.MAX_VALUE;
+        }
+        return UnitDao.getInstance()
+                .getFiltered(boilingPoints, ranges, minRefCapacity, maxRefCapacity, searchUnitDto.getLimit())
+                .stream()
+                .map(it -> new ViewBasicUnitInfoDto(it.getId(), it.getName(), it.getPrice()))
                 .collect(Collectors.toSet());
     }
 }

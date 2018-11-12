@@ -1,4 +1,4 @@
-package enumeration;
+package com.refunits.enumeration;
 
 public enum UnitRange {
 

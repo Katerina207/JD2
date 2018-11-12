@@ -13,14 +13,14 @@
         <property name="format_sql">true</property>
         <property name="hbm2ddl.auto">create</property>
 
-        <mapping class="model.Option"/>
-        <mapping class="model.PreOrder"/>
-        <mapping class="model.Product"/>
-        <mapping class="model.RegisteredUser"/>
-        <mapping class="model.Unit"/>
-        <mapping class="model.Admin"/>
-        <mapping class="model.Consumer"/>
-        <mapping class="model.Manager"/>
+        <mapping class="com.refunits.model.Option"/>
+        <mapping class="com.refunits.model.PreOrder"/>
+        <mapping class="com.refunits.model.Product"/>
+        <mapping class="com.refunits.model.RegisteredUser"/>
+        <mapping class="com.refunits.model.Unit"/>
+        <mapping class="com.refunits.model.Admin"/>
+        <mapping class="com.refunits.model.Consumer"/>
+        <mapping class="com.refunits.model.Manager"/>
 
     </session-factory>
 </hibernate-configuration>

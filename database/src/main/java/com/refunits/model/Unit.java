@@ -1,7 +1,7 @@
-package model;
+package com.refunits.model;
 
-import enumeration.BoilingPoint;
-import enumeration.UnitRange;
+import com.refunits.enumeration.BoilingPoint;
+import com.refunits.enumeration.UnitRange;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,9 +11,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -27,11 +24,7 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "unit", schema = "refunits_storage")
-public class Unit {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Unit extends BaseEntity<Integer>{
 
     @Column(name = "name", unique = true, nullable = false)
     private String name;

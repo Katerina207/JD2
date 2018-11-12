@@ -1,11 +1,16 @@
-package model;
+package com.refunits.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -16,11 +21,7 @@ import java.util.Set;
 @Entity
 @Table(name = "registered_user", schema = "refunits_storage")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class RegisteredUser {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public abstract class RegisteredUser extends BaseEntity<Integer>{
 
     @Column(name = "login", unique = true, nullable = false)
     private String login;

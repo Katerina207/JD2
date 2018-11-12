@@ -1,4 +1,4 @@
-package model;
+package com.refunits.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,9 +7,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -23,11 +20,7 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "product", schema = "refunits_storage")
-public class Product {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Product extends BaseEntity<Integer>{
 
     @Column(name = "number")
     private Integer number;

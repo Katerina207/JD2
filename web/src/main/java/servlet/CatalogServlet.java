@@ -1,8 +1,9 @@
 package servlet;
 
+import com.refunits.enumeration.Limit;
 import dto.SearchUnitDto;
-import enumeration.BoilingPoint;
-import enumeration.UnitRange;
+import com.refunits.enumeration.BoilingPoint;
+import com.refunits.enumeration.UnitRange;
 import service.CatalogService;
 import util.JspPathUtil;
 
@@ -22,6 +23,7 @@ public class CatalogServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("boilingPoints", BoilingPoint.values());
         req.setAttribute("ranges", UnitRange.values());
+        req.setAttribute("limits", Limit.values());
         req.setAttribute("units", CatalogService.getInstance().getAll());
         getServletContext()
                 .getRequestDispatcher(JspPathUtil.get("catalog"))
@@ -42,8 +44,11 @@ public class CatalogServlet extends HttpServlet {
             searchUnitDto.setMinRefCapacity(Double.valueOf(req.getParameter("minRefCapacity")));
             searchUnitDto.setMaxRefCapacity(Double.valueOf(req.getParameter("maxRefCapacity")));
         }
+        searchUnitDto.setLimit(Integer.valueOf(Limit.valueOf(req.getParameter("limit")).getNumber()));
+
         req.setAttribute("boilingPoints", BoilingPoint.values());
         req.setAttribute("ranges", UnitRange.values());
+        req.setAttribute("limits", Limit.values());
         req.setAttribute("units", CatalogService.getInstance().getFiltered(searchUnitDto));
         getServletContext()
                 .getRequestDispatcher(JspPathUtil.get("catalog"))
