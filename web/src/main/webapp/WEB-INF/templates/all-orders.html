@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<div th:insert="~{header::language}"></div>
+<div th:insert="~{header::catalog}"></div>
+<div th:insert="~{header::account}"></div>
+<div th:insert="~{header::logout}"></div>
+
+<form th:action="@{/all-orders}" th:method="post" th:object="${searchOrder}">
+    <div class="form-group">
+        <select name="status" id="status" th:field="*{status}">
+            <option th:each="currentStatus : ${allStatuses}"
+                    th:value="${currentStatus}"
+                    th:text="${currentStatus}">
+            </option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="id">
+            <span th:text="#{order.id}">:</span>
+            <input class="form-control" type="number" id="id" th:field="*{id}">
+        </label>
+    </div>
+    <div class="form-group">
+        <label for="company">
+            <span th:text="#{company}">Company:</span>
+            <input class="form-control" type="text" id="company" th:field="*{company}">
+        </label>
+    </div>
+    <div class="form-group">
+        <label for="date">
+            <span th:text="#{date}">Date:</span>
+            <input class="form-control" type="date" id="date" th:field="*{date}">
+        </label>
+    </div>
+
+    <div class="form-group">
+        <input class="btn btn-success" type="submit" th:value="#{search}">
+    </div>
+</form>
+
+<div class="container">
+    <table>
+        <tr>
+            <th th:text="#{order.id}">ID</th>
+            <th th:text="#{date}">Date</th>
+            <th th:text="#{company}">Company</th>
+            <th th:text="#{status}">Status</th>
+        </tr>
+        <tr th:each="order: ${orders}">
+            <td><a th:text="${order.id}" th:href="@{/order(id = ${order.id})}">Order name</a></td>
+            <td><a th:text="${order.date}" th:href="@{/order(id = ${order.id})}">Date</a></td>
+            <td><a th:text="${order.company}" th:href="@{/order(id = ${order.id})}">Company</a></td>
+            <td><a th:text="${order.status}" th:href="@{/order(id = ${order.id})}">Status</a></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

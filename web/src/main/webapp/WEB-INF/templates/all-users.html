@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<div th:insert="~{header::language}"></div>
+<div th:insert="~{header::catalog}"></div>
+<div th:insert="~{header::account}"></div>
+<div th:insert="~{header::logout}"></div>
+
+<form th:action="@{/all-users}" th:method="post" th:object="${searchUser}">
+    <div class="form-group">
+        <select name="role" id="role" th:field="*{role}">
+            <option th:each="currentRole : ${allRoles}"
+                    th:value="${currentRole}"
+                    th:text="${currentRole}">
+            </option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="id">
+            <span th:text="#{user.id}">ID:</span>
+            <input class="form-control" type="number" id="id" th:field="*{id}">
+        </label>
+    </div>
+    <div class="form-group">
+        <label for="company">
+            <span th:text="#{company}">Company:</span>
+            <input class="form-control" type="text" id="company" th:field="*{company}">
+        </label>
+    </div>
+    <div class="form-group">
+        <input class="btn btn-success" type="submit" th:value="#{search}">
+    </div>
+</form>
+
+<div class="container">
+    <table>
+        <tr>
+            <th th:text="#{user.id}">ID</th>
+            <th th:text="#{login}">Login</th>
+            <th th:text="#{company}">Company</th>
+            <th th:text="#{role}">Role</th>
+        </tr>
+        <tr th:each="user: ${users}">
+            <td><a th:text="${user.id}" th:href="@{/user-info(id = ${user.id})}">ID</a></td>
+            <td><a th:text="${user.login}" th:href="@{/user-info(id = ${user.id})}">Login</a></td>
+            <td><a th:text="${user.company}" th:href="@{/user-info(id = ${user.id})}">Company</a></td>
+            <td><a th:text="${user.role}" th:href="@{/user-info(id = ${user.id})}">Role</a></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

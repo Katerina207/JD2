@@ -3,7 +3,12 @@ package com.refunits.database.util;
 import com.refunits.database.enumeration.BoilingPoint;
 import com.refunits.database.enumeration.OrderStatus;
 import com.refunits.database.enumeration.UnitRange;
-import com.refunits.database.model.*;
+import com.refunits.database.enumeration.UserRole;
+import com.refunits.database.model.Option;
+import com.refunits.database.model.PreOrder;
+import com.refunits.database.model.Product;
+import com.refunits.database.model.RegisteredUser;
+import com.refunits.database.model.Unit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,14 +31,11 @@ public class DatabaseHelper {
     public void cleanDatabase() {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        entityManager.createQuery("delete from RegisteredUser").executeUpdate();
-        entityManager.createQuery("delete from Admin").executeUpdate();
-        entityManager.createQuery("delete from Consumer").executeUpdate();
-        entityManager.createQuery("delete from Manager").executeUpdate();
-        entityManager.createQuery("delete from Option").executeUpdate();
-        entityManager.createQuery("delete from PreOrder").executeUpdate();
         entityManager.createQuery("delete from Product").executeUpdate();
+        entityManager.createQuery("delete from Option").executeUpdate();
         entityManager.createQuery("delete from Unit").executeUpdate();
+        entityManager.createQuery("delete from PreOrder").executeUpdate();
+        entityManager.createQuery("delete from RegisteredUser").executeUpdate();
         entityManager.getTransaction().commit();
         entityManager.close();
     }
@@ -59,11 +61,11 @@ public class DatabaseHelper {
         options1.add(option1);
         options1.add(option3);
 
-        Unit unit1 = new Unit("AM.N10-0115-2x2EES3-K45", 11.5, BoilingPoint.N10, UnitRange.AM, options1);
-        Unit unit2 = new Unit("AM.N10-0137-2x2DES3-K45", 13.7, BoilingPoint.N10, UnitRange.AM, options2);
-        Unit unit3 = new Unit("AK.N10-0161-1x4CES9-K45", 16.1, BoilingPoint.N10, UnitRange.AK);
-        Unit unit4 = new Unit("AKM.N35-0015-1xZF09K-K45", 1.5, BoilingPoint.N35, UnitRange.AKM);
-        Unit unit5 = new Unit("AKM.N35-0139-1xZF48K-EVI-K45", 13.9, BoilingPoint.N35, UnitRange.AKM);
+        Unit unit1 = new Unit("AM.N10-0115-2x2EES3-K45", 11.5, BoilingPoint.N10, UnitRange.AM, options1, 2000);
+        Unit unit2 = new Unit("AM.N10-0137-2x2DES3-K45", 13.7, BoilingPoint.N10, UnitRange.AM, options2, 2100);
+        Unit unit3 = new Unit("AK.N10-0161-1x4CES9-K45", 16.1, BoilingPoint.N10, UnitRange.AK, 2200);
+        Unit unit4 = new Unit("AKM.N35-0015-1xZF09K-K45", 1.5, BoilingPoint.N35, UnitRange.AKM, 2300);
+        Unit unit5 = new Unit("AKM.N35-0139-1xZF48K-EVI-K45", 13.9, BoilingPoint.N35, UnitRange.AKM, 2400);
 
         entityManager.persist(unit1);
         entityManager.persist(unit2);
@@ -77,9 +79,9 @@ public class DatabaseHelper {
         entityManager.persist(product1);
         entityManager.persist(product2);
 
-        RegisteredUser manager = new Manager("Manager", "1111", LocalDate.now(), "Ref");
-        RegisteredUser admin = new Admin("Admin", "0000", LocalDate.now());
-        RegisteredUser consumer = new Consumer("Consumer", "1234", LocalDate.now(), "Hol");
+        RegisteredUser manager = new RegisteredUser("Manager", "1111", LocalDate.now(), "Ref", UserRole.MANAGER);
+        RegisteredUser admin = new RegisteredUser("Admin", "0000", LocalDate.now(), "Ref", UserRole.ADMIN);
+        RegisteredUser consumer = new RegisteredUser("Consumer", "1234", LocalDate.now(), "Hol", UserRole.CONSUMER);
 
         entityManager.persist(manager);
         entityManager.persist(admin);

@@ -45,7 +45,7 @@ public class UnitRepositoryTest {
     }
 
     @Test
-    public void checkFindAllByBoilingPointInAndRangeInAndRefCapacityBetween(){
+    public void checkFindAllByBoilingPointInAndRangeInAndRefCapacityBetween() {
         List<BoilingPoint> boilingPoints = new ArrayList<>();
         boilingPoints.add(BoilingPoint.N10);
         boilingPoints.add(BoilingPoint.N30);
@@ -58,8 +58,8 @@ public class UnitRepositoryTest {
     }
 
     @Test
-    public void checkSave(){
-        Unit unit = new Unit("AM.N10-0111-test", 11.1, BoilingPoint.N10, UnitRange.AM);
+    public void checkSave() {
+        Unit unit = new Unit("AM.N10-0111-test", 11.1, BoilingPoint.N10, UnitRange.AM, 2500);
         unitRepository.save(unit);
         Assert.assertNotNull(unit);
     }

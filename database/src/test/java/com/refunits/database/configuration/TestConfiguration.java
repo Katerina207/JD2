@@ -9,4 +9,3 @@ import org.springframework.context.annotation.Import;
 @Import(DatabaseConfiguration.class)
 public class TestConfiguration {
 }
-

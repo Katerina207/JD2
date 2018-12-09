@@ -40,17 +40,22 @@ public class OptionRepositoryTest {
     }
 
     @Test
-    public void checkFindByNameAndPrice(){
-     optionRepository.findByNameAndPrice("A1", 140);
+    public void checkFindByNameAndPrice() {
+        optionRepository.findByNameAndPrice("A1", 140);
     }
 
     @Test
-    public void checkFindAllByUnit(){
+    public void checkFindAllByUnit() {
         optionRepository.findAllByUnit(1);
     }
 
     @Test
-    public void checkSave(){
+    public void checkFindAllByProduct() {
+        optionRepository.findAllByProduct(1);
+    }
+
+    @Test
+    public void checkSave() {
         Option option = new Option("C2", 450);
         optionRepository.save(option);
         Assert.assertNotNull(option);

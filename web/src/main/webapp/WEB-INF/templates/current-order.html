@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<div th:insert="~{header::language}"></div>
+<div th:insert="~{header::catalog}"></div>
+<div th:insert="~{header::account}"></div>
+<div th:insert="~{header::logout}"></div>
+
+<div class="container">
+    <table>
+        <tr>
+            <th th:text="#{unit}">Unit</th>
+            <th th:text="#{options}">Options</th>
+            <th th:text="#{number}">Number</th>
+            <th th:text="#{price}">Price</th>
+            <th th:text="#{subtotal}">Subtotal</th>
+        </tr>
+        <tr th:each="productTemp : ${products}">
+            <form th:action="@{/current-order}" th:method="post" th:object="${updateProduct}">
+                <td th:text="${productTemp.unit.name}"></td>
+                <td th:each="option:${productTemp.options}" th:text="${option.name} "></td>
+                <td>
+                    <input type="text" name="unit.name" hidden th:value="${productTemp.unit.name}">
+                    <input type="text" name="sum" hidden th:value="${productTemp.sum}">
+                    <input type="text" name="number" id="number" th:default="${productTemp.number}">
+                    <input type="submit" th:value="#{recalculate}">
+                </td>
+                <td th:text="${productTemp.sum}"></td>
+                <td th:text="${productTemp.subtotal}"></td>
+            </form>
+        </tr>
+        <tr>
+            <td th:text="${total}"></td>
+        </tr>
+    </table>
+    <form th:action="@{/create-order}" th:method="post" th:object="${comment}">
+        <input type="text" name="comment" id="comment">
+        <input type="submit" th:value="#{send.order}">
+    </form>
+</div>
+</body>
+</html>

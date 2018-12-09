@@ -5,7 +5,12 @@ import com.refunits.database.enumeration.UnitRange;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.OptimisticLockType;
+import org.hibernate.annotations.OptimisticLocking;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,12 +24,16 @@ import javax.persistence.Table;
 import java.util.Set;
 
 @Data
+@ToString(exclude = {"products"})
+@EqualsAndHashCode(callSuper = true, exclude = "products")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
 @Table(name = "unit", schema = "refunits_storage")
-public class Unit extends BaseEntity<Integer>{
+@OptimisticLocking(type = OptimisticLockType.ALL)
+@DynamicUpdate
+public class Unit extends BaseEntity<Integer> {
 
     @Column(name = "name", unique = true, nullable = false)
     private String name;
@@ -55,7 +64,7 @@ public class Unit extends BaseEntity<Integer>{
     @Column(name = "description")
     private String description;
 
-    @Column(name = "price")
+    @Column(name = "price", nullable = false)
     private Integer price;
 
     @ManyToMany
@@ -67,18 +76,35 @@ public class Unit extends BaseEntity<Integer>{
     @OneToMany(mappedBy = "unit")
     private Set<Product> products;
 
-    public Unit(String name, Double refCapacity, BoilingPoint boilingPoint, UnitRange range) {
+    public Unit(String name, Double refCapacity, BoilingPoint boilingPoint, UnitRange range, Integer price) {
         this.name = name;
         this.refCapacity = refCapacity;
         this.boilingPoint = boilingPoint;
         this.range = range;
+        this.price = price;
     }
 
-    public Unit(String name, Double refCapacity, BoilingPoint boilingPoint, UnitRange range, Set<Option> options) {
+    public Unit(String name, Double refCapacity, BoilingPoint boilingPoint, UnitRange range, Set<Option> options, Integer price) {
         this.name = name;
         this.refCapacity = refCapacity;
         this.boilingPoint = boilingPoint;
         this.range = range;
         this.options = options;
+        this.price = price;
+    }
+
+    public Unit(String name, UnitRange range, BoilingPoint boilingPoint, Double refCapacity,
+                Integer weight, Integer length, Integer width, Integer height,
+                String description, Integer price) {
+        this.name = name;
+        this.range = range;
+        this.boilingPoint = boilingPoint;
+        this.refCapacity = refCapacity;
+        this.weight = weight;
+        this.length = length;
+        this.width = width;
+        this.height = height;
+        this.description = description;
+        this.price = price;
     }
 }

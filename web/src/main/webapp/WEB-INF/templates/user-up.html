@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<div th:insert="~{header::catalog}"></div>
+<div th:insert="~{header::account}"></div>
+<div th:insert="~{header::logout}"></div>
+
+<form th:action="@{/user-up}" th:method="post" th:object="${updateSearchUser}">
+    <div>
+        <label for="contactPerson">
+            <span th:value="#{contact.person}">Contact person:</span>
+            <input type="text" th:value="${defaultUserInfo.contactPerson}" id="contactPerson" name="contactPerson">
+        </label>
+        <label for="mail">
+            <span th:value="#{mail}">E-mail:</span>
+            <input type="text" th:value="${defaultUserInfo.mail}" id="mail" name="mail">
+        </label>
+        <label for="telephone">
+            <span th:value="#{tel}">Telephone:</span>
+            <input type="text" th:value="${defaultUserInfo.telephone}" id="telephone" name="telephone">
+        </label>
+        <input class="btn btn-success" type="submit" th:value="#{change}">
+    </div>
+</form>
+</body>
+</html>

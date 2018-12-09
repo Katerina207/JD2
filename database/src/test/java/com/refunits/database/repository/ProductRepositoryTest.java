@@ -3,9 +3,7 @@ package com.refunits.database.repository;
 import com.refunits.database.configuration.TestConfiguration;
 import com.refunits.database.enumeration.BoilingPoint;
 import com.refunits.database.enumeration.UnitRange;
-import com.refunits.database.model.PreOrder;
-import com.refunits.database.model.Product;
-import com.refunits.database.model.Unit;
+import com.refunits.database.model.*;
 import com.refunits.database.util.DatabaseHelper;
 import org.junit.Assert;
 import org.junit.Before;
@@ -30,9 +28,6 @@ public class ProductRepositoryTest {
     @Autowired
     private UnitRepository unitRepository;
 
-    @Autowired
-    private PreOrderRepository preOrderRepository;
-
     @Before
     public void init() {
         databaseHelper.cleanDatabase();
@@ -50,19 +45,14 @@ public class ProductRepositoryTest {
     }
 
     @Test
-    public void checkFindAllByPreOrder(){
-        PreOrder preOrder = new PreOrder();
-
-        if (preOrderRepository.findById(1).isPresent()){
-            preOrder = preOrderRepository.findById(1).get();
-        }
-
-     productRepository.findAllByPreOrder(preOrder);
+    public void checkFindAllByPreOrderId() {
+        Integer preOrderId = 1;
+        productRepository.findAllByPreOrderId(preOrderId);
     }
 
     @Test
-    public void checkSave(){
-        Unit unit = new Unit("test", 1.0, BoilingPoint.N10, UnitRange.AM);
+    public void checkSave() {
+        Unit unit = new Unit("test", 1.0, BoilingPoint.N10, UnitRange.AM, 1000);
 
         if (unitRepository.findById(1).isPresent()) {
             unit = unitRepository.findById(1).get();

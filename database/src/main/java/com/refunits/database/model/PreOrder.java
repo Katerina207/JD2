@@ -4,7 +4,11 @@ import com.refunits.database.enumeration.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.OptimisticLockType;
+import org.hibernate.annotations.OptimisticLocking;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,12 +22,15 @@ import java.time.LocalDate;
 import java.util.Set;
 
 @Data
+@EqualsAndHashCode(callSuper = true, exclude = "registeredUser")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
 @Table(name = "pre_order", schema = "refunits_storage")
-public class PreOrder extends BaseEntity<Integer>{
+@OptimisticLocking(type = OptimisticLockType.ALL)
+@DynamicUpdate
+public class PreOrder extends BaseEntity<Integer> {
 
     @Column(name = "date", nullable = false)
     private LocalDate date;
@@ -49,7 +56,7 @@ public class PreOrder extends BaseEntity<Integer>{
         this.registeredUser = registeredUser;
     }
 
-    public PreOrder(LocalDate date, RegisteredUser user){
+    public PreOrder(LocalDate date, RegisteredUser user) {
         this.date = date;
         this.registeredUser = user;
     }

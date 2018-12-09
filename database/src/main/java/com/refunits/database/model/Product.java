@@ -3,7 +3,11 @@ package com.refunits.database.model;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.OptimisticLockType;
+import org.hibernate.annotations.OptimisticLocking;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,12 +19,15 @@ import javax.persistence.Table;
 import java.util.Set;
 
 @Data
+@EqualsAndHashCode(callSuper = true, exclude = "preOrder")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
 @Table(name = "product", schema = "refunits_storage")
-public class Product extends BaseEntity<Integer>{
+@OptimisticLocking(type = OptimisticLockType.ALL)
+@DynamicUpdate
+public class Product extends BaseEntity<Integer> {
 
     @Column(name = "number")
     private Integer number;

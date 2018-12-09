@@ -1,7 +1,7 @@
 package com.refunits.database.repository;
 
 import com.refunits.database.configuration.TestConfiguration;
-import com.refunits.database.model.Admin;
+import com.refunits.database.enumeration.UserRole;
 import com.refunits.database.model.PreOrder;
 import com.refunits.database.model.RegisteredUser;
 import com.refunits.database.util.DatabaseHelper;
@@ -47,24 +47,22 @@ public class PreOrderRepositoryTest {
     }
 
     @Test
-    public void checkFindAllByPreOrder(){
-        RegisteredUser registeredUser = new Admin();
+    public void checkFindAllByRegisteredUser() {
+        RegisteredUser user = new RegisteredUser("Adm", "111", LocalDate.now(), "Comp", UserRole.ADMIN);
+        registeredUserRepository.save(user);
 
-        if (registeredUserRepository.findById(1).isPresent()){
-            registeredUser = registeredUserRepository.findById(1).get();
-        }
-     preOrderRepository.findAllByRegisteredUser(registeredUser);
+        preOrderRepository.save(new PreOrder(LocalDate.now(), user));
+        preOrderRepository.save(new PreOrder(LocalDate.of(2000, 12, 20), user));
+
+        preOrderRepository.findAllByRegisteredUser(user);
     }
 
     @Test
-    public void checkSave(){
-        RegisteredUser registeredUser = new Admin("Admin1", "123", LocalDate.now());
+    public void checkSave() {
+        RegisteredUser admin = new RegisteredUser("Admin1", "0000", LocalDate.now(), "Ref", UserRole.ADMIN);
+        registeredUserRepository.save(admin);
 
-        if (registeredUserRepository.findById(1).isPresent()){
-            registeredUser = registeredUserRepository.findById(1).get();
-        }
-
-        PreOrder preOrder = new PreOrder(LocalDate.now(), registeredUser);
+        PreOrder preOrder = new PreOrder(LocalDate.now(), admin);
         preOrderRepository.save(preOrder);
         Assert.assertNotNull(preOrder);
     }

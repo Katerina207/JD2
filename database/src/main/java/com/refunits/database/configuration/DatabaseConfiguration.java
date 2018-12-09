@@ -38,8 +38,7 @@ public class DatabaseConfiguration {
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,
-                                                                       Properties jpaProperties) {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, Properties jpaProperties) {
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         vendorAdapter.setGenerateDdl(true);
 
@@ -48,6 +47,7 @@ public class DatabaseConfiguration {
         factory.setPackagesToScan("com.refunits.database.model");
         factory.setDataSource(dataSource);
         factory.setJpaProperties(jpaProperties);
+
         return factory;
     }
 
@@ -67,4 +67,3 @@ public class DatabaseConfiguration {
         return transactionManager;
     }
 }
-

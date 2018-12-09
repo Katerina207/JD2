@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="language">
+    <a href="?language=en_US">English</a>
+    <a href="?language=ru_RU">Русский</a>
+</div>
+<div th:fragment="catalog">
+    <a th:text="#{catalog}" th:href="@{/catalog}">Catalog</a>
+</div>
+<div th:fragment="account">
+    <a th:text="#{account}" th:href="@{/account}">Account</a>
+</div>
+
+<div th:fragment="users">
+    <a th:text="#{users}" th:href="@{/all-users}">All users</a>
+</div>
+<div th:fragment="orders">
+    <a th:text="#{orders}" th:href="@{/all-orders}">All orders</a>
+</div>
+<div th:fragment="option">
+    <a th:text="#{create.option}" th:href="@{/create-option}">Create option</a>
+</div>
+<div th:fragment="login">
+    <a th:text="#{login.submit}" th:href="@{/login}">Login</a>
+</div>
+<div th:fragment="registration">
+    <a th:text="#{reg.submit}" th:href="@{/registration}">Registration</a>
+</div>
+
+<div th:fragment="logout">
+    <form sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER', 'ROLE_CONSUMER')" th:action="@{/logout}"
+          th:method="post">
+        <input type="submit" th:value="#{logout.submit}">
+    </form>
+</div>
+</body>
+</html>
